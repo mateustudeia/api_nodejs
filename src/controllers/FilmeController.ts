@@ -18,14 +18,17 @@ export default class FilmeController {
         const genero = filters.genero as string;
         const atores = filters.atores as string;
 
-        if (!filters.nome || !filters.nome_diretor || !filters.genero || !filters.atores) {
+        if (!filters.nome && !filters.nome_diretor && !filters.genero && !filters.atores) {
             return response.status(400).json({
                 error: 'Não foi informado nenhum filtro para filmes'
             });
         }
 
         const filmes = await db('filme')
-            .where('filme.nome', '=', nome)
+            .where('`filme`.`nome` = ??', [String(nome)]) 
+            .or.where('`filme`.`nome_diretor` = ??', [String(nome_diretor)])
+            .or.where('`filme`.`genero` = ??', [String(genero)])
+            .or.where('`filme`.`atores` = ??', [String(atores)])
             .select(['filme.*']);
         
         
