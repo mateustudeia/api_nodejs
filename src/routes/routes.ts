@@ -10,6 +10,7 @@ routes.post('/usuario', usuarioControllers.create);
 
 routes.get('/filme', filmeControllers.index);
 routes.post('/filme', filmeControllers.create);
+routes.post('/votar_filme', filmeControllers.vote);
 
 
 export default routes;

@@ -24,7 +24,6 @@ export default class FilmeController {
             .orWhere('atores', String(atores))
             .select('*')
         
-        console.log(filmes);
         return response.json(filmes) 
     }
     async create (request: Request, response: Response) {
@@ -55,7 +54,45 @@ export default class FilmeController {
                 error: 'Erro ao cadastrar um usuário'
             });
         }
-    
         
     }
+    async vote(request: Request, response: Response)  {
+        const {
+            usuario_id,
+            filme_id,
+            valor_voto,
+        } = request.body;
+
+        const trx = await db.transaction();
+        
+        try {
+            await trx ('voto')
+                .whereExists(function() {
+                    this.select('usuario.*')
+                        .from('usuario')
+                        .whereRaw('`usuario`.`id` = ??', usuario_id)
+                })
+                .whereExists(function() {
+                    this.select('filme.* = ')
+                        .from('filme')
+                        .whereRaw('`filme`.`id` = ??', filme_id)
+                })
+                .insert({
+                    usuario_id,
+                    filme_id,
+                    valor_voto,
+                });
+            
+            await trx.commit();
+    
+            return response.status(201).send();
+            
+        } catch (err) {
+            await trx.rollback();
+            
+            return response.status(400).json({
+                error: 'Erro ao registrar voto'
+            });
+        }
+    } 
 }

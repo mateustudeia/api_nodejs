@@ -17,7 +17,7 @@ export async function up(knex: Knex) {
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         
-        table.integer('voto')
+        table.integer('valor_voto')
             .nullable()
     });
 }
