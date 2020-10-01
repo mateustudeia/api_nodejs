@@ -38,6 +38,6 @@ export default class UsuarioController {
     }
 
     async delite (request: Request, response: Response) {
-
+        
     }
 }

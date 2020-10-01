@@ -1,8 +1,11 @@
-import { Request, Response } from  'express';
+import { Request, Response } from 'express';
 import db from '../database/connection';
 
 export default class FilmeController {
 
+    async get(request: Request, response: Response) {
+
+    }
     async index(request: Request, response: Response) {
         const filters = request.query;
 
@@ -26,7 +29,7 @@ export default class FilmeController {
         
         return response.json(filmes) 
     }
-    async create (request: Request, response: Response) {
+    async create(request: Request, response: Response) {
         const {
             nome,
             nome_diretor,
@@ -66,22 +69,21 @@ export default class FilmeController {
         const trx = await db.transaction();
         
         try {
-            await trx ('voto')
-                .whereExists(function() {
-                    this.select('usuario.*')
-                        .from('usuario')
-                        .whereRaw('`usuario`.`id` = ??', usuario_id)
-                })
-                .whereExists(function() {
-                    this.select('filme.* = ')
-                        .from('filme')
-                        .whereRaw('`filme`.`id` = ??', filme_id)
-                })
-                .insert({
-                    usuario_id,
-                    filme_id,
+            const usuario = await trx('usuario')
+                .where('id', '=', Number(usuario_id)) 
+                .select('id')
+            const filme = await trx('filme')
+                .where('id', '=', Number(filme_id)) 
+                .select('id')
+            
+            const usuarioId = usuario[0].id;
+            const filmeId = filme[0].id;
+
+            await trx ('voto_usuario_filme').insert({
+                    usuario_id: usuarioId,
+                    filme_id: filmeId,
                     valor_voto,
-                });
+            })
             
             await trx.commit();
     
@@ -96,3 +98,4 @@ export default class FilmeController {
         }
     } 
 }
+
