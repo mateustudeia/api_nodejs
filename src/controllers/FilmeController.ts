@@ -4,7 +4,7 @@ import db from '../database/connection';
 export default class FilmeController {
 
     async get(request: Request, response: Response) {
-
+        
     }
     async index(request: Request, response: Response) {
         const filters = request.query;

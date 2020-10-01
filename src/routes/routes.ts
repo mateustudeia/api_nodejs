@@ -10,6 +10,10 @@ routes.post('/usuario', usuarioControllers.create);
 routes.put('/usuario', usuarioControllers.update)
 routes.delete('/usuario', usuarioControllers.delite);
 
+routes.post('/adminstrador', usuarioControllers.create);
+routes.put('/adminstrador', usuarioControllers.update)
+routes.delete('/adminstrador', usuarioControllers.delite);
+
 routes.get('/filme', filmeControllers.index);
 routes.post('/filme', filmeControllers.create);
 routes.post('/filme/votar', filmeControllers.vote);
