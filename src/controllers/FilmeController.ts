@@ -3,8 +3,8 @@ import db from '../database/connection';
 
 export default class FilmeController {
 
-    async get(request: Request, response: Response) {
-        
+    async detailsIndex(request: Request, response: Response) {
+
     }
     async index(request: Request, response: Response) {
         const filters = request.query;
@@ -59,43 +59,6 @@ export default class FilmeController {
         }
         
     }
-    async vote(request: Request, response: Response)  {
-        const {
-            usuario_id,
-            filme_id,
-            valor_voto,
-        } = request.body;
 
-        const trx = await db.transaction();
-        
-        try {
-            const usuario = await trx('usuario')
-                .where('id', '=', Number(usuario_id)) 
-                .select('id')
-            const filme = await trx('filme')
-                .where('id', '=', Number(filme_id)) 
-                .select('id')
-            
-            const usuarioId = usuario[0].id;
-            const filmeId = filme[0].id;
-
-            await trx ('voto_usuario_filme').insert({
-                    usuario_id: usuarioId,
-                    filme_id: filmeId,
-                    valor_voto,
-            })
-            
-            await trx.commit();
-    
-            return response.status(201).send();
-            
-        } catch (err) {
-            await trx.rollback();
-            
-            return response.status(400).json({
-                error: 'Erro ao registrar voto'
-            });
-        }
-    } 
 }
 

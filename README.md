@@ -52,8 +52,8 @@ Você deverá criar uma API que o site [IMDb](https://www.imdb.com/) irá consul
 - Usuário
 
   - [ X ] Cadastro
-  - Edição
-  - Exclusão lógica (Desativação)
+  - [ X ] Edição
+  - [ X ] Exclusão lógica (Desativação)
 
 - Filmes
 
