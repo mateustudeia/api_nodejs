@@ -20,7 +20,7 @@ routes.delete('/adminstrador', administradorControllers.delite);
 
 routes.get('/filme', filmeControllers.index);
 routes.post('/filme', filmeControllers.create);
-routes.get('/detalhes', filmeControllers.detailsIndex)
+routes.get('/filme/detalhe', filmeControllers.details)
 
 routes.post('/votar', votoControllers.vote);
 

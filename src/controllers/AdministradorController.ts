@@ -84,7 +84,7 @@ export default class AdministradorController {
             await trx.rollback();
             
             return response.status(400).json({
-                error: 'Erro ao deletar o usuário'
+                error: 'Erro ao deletar o administrador'
             });
         }
     }

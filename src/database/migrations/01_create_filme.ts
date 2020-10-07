@@ -5,7 +5,7 @@ export async function up(knex: Knex) {
         table.increments('id').primary();
         table.string('titulo').notNullable();
         table.integer('ano').notNullable();
-        table.timestamp('tempo_duracao').notNullable();
+        table.integer('tempo_duracao').notNullable();
         table.string('enredo').notNullable();
         table.string('escritores').notNullable();
         table.string('diretor').notNullable();

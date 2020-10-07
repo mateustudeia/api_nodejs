@@ -9,9 +9,9 @@ export async function up(knex: Knex) {
             .inTable('usuario')
             .onUpdate('CASCADE')
             .onDelete('RESTRICT')
-        table.boolean('admin_desativado')
-            .notNullable();
         table.dateTime('data_cadastro')
+                .notNullable();
+        table.boolean('admin_desativado')
             .notNullable();
     });
 }

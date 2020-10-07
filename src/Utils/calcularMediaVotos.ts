@@ -1,5 +1,4 @@
-export default function calcularMediaVotos (totalVotos: []) {
-    const media = ( ) => {
-        return 
-    }
+export default function calculaMediaVotos (totalVotos: string, somaVotos: number) {
+    const media = parseInt(totalVotos) / somaVotos;
+    return media;
 }
